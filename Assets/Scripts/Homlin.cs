@@ -39,9 +39,9 @@ public class Homlin : MonoBehaviour {
 
     public void TakeFruit(Rigidbody crop) {
         int fruitCount = FruitContainer.childCount;
-        
         crop.transform.parent = FruitContainer;
         crop.transform.localPosition = Vector3.zero + Vector3.up * fruitCount * FruitHeight;
+       
         crop.detectCollisions = false;
         crop.isKinematic = true;
     }

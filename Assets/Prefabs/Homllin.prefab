@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Transform: {fileID: 6728057416480771905}
-  Speed: 0.05
+  Speed: 0.035
   GameManager: {fileID: 0}
   Rigidbody: {fileID: 3898457248986506499}
   FruitContainer: {fileID: 2291208063268094848}
@@ -160,7 +160,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1716359656094216404
 GameObject:
   m_ObjectHideFlags: 0
