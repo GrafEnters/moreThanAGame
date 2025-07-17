@@ -13,6 +13,7 @@ public class Homlin : MonoBehaviour {
     public Transform FruitContainer;
 
     public float FruitHeight;
+    private bool IsSelling;
 
     void Update() {
         if (Input.GetKey(KeyCode.W)) {
@@ -44,5 +45,19 @@ public class Homlin : MonoBehaviour {
         crop.detectCollisions = false;
         crop.isKinematic = true;
     }
-    
+
+    public void SellFruits() {
+        if (IsSelling) {
+            return;
+        }
+        IsSelling = true;
+        GameManager.SellFruits(FruitContainer);
+        foreach (Transform child in FruitContainer) {
+            Destroy(child.gameObject);
+        }
+    }
+
+    private void LateUpdate() {
+        IsSelling = false;
+    }
 }

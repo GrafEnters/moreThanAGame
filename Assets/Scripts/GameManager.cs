@@ -41,15 +41,8 @@ public class GameManager : MonoBehaviour {
         if (crop == null) {
             return;
         }
-        
-        if (crop.CompareTag("Apple")) {
-            CropsCount++;
-            UpdateCount();
-            Homlin.TakeFruit(crop);
-        } else if (crop.CompareTag("Orange")) {
-            CropsCount += OrangeGain;
 
-            UpdateCount();
+        if (crop.CompareTag("Apple") || crop.CompareTag("Orange")) {
             Homlin.TakeFruit(crop);
         }
     }
@@ -57,7 +50,6 @@ public class GameManager : MonoBehaviour {
     private void UpdateCount() {
         Text.text = CropsCount.ToString();
     }
-    
 
     public void BuyTree() {
         if (CropsCount >= TreeCost) {
@@ -79,5 +71,17 @@ public class GameManager : MonoBehaviour {
         var randomPos = new Vector3(Random.Range(-TreeCreateRadius, TreeCreateRadius), 0, Random.Range(-TreeCreateRadius, TreeCreateRadius));
 
         Instantiate(tree, randomPos, Quaternion.identity);
+    }
+
+    public void SellFruits(Transform fruitContainer) {
+        foreach (Transform fruit in fruitContainer) {
+            if (fruit.CompareTag("Apple")) {
+                CropsCount++;
+            } else if (fruit.CompareTag("Orange")) {
+                CropsCount += OrangeGain;
+            }
+        }
+
+        UpdateCount();
     }
 }
