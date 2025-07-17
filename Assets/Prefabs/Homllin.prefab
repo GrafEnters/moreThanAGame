@@ -133,6 +133,7 @@ MonoBehaviour:
   GameManager: {fileID: 0}
   Rigidbody: {fileID: 3898457248986506499}
   FruitContainer: {fileID: 2291208063268094848}
+  FruitHeight: 0.4
 --- !u!54 &3898457248986506499
 Rigidbody:
   m_ObjectHideFlags: 0

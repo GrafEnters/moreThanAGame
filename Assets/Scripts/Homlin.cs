@@ -12,6 +12,8 @@ public class Homlin : MonoBehaviour {
 
     public Transform FruitContainer;
 
+    public float FruitHeight;
+
     void Update() {
         if (Input.GetKey(KeyCode.W)) {
             Rigidbody.MovePosition(Rigidbody.position + Vector3.forward * Speed);
@@ -35,8 +37,10 @@ public class Homlin : MonoBehaviour {
     }
 
     public void TakeFruit(Rigidbody crop) {
+        int fruitCount = FruitContainer.childCount;
+        
         crop.transform.parent = FruitContainer;
-        crop.transform.localPosition = Vector3.zero;
+        crop.transform.localPosition = Vector3.zero + Vector3.up * fruitCount * FruitHeight;
         crop.detectCollisions = false;
         crop.isKinematic = true;
     }
