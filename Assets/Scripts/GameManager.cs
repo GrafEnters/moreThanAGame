@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
     public int OrangeGain = 5;
     public Plant OrangeTree;
 
+    public Homlin Homlin;
+
     private void Start() {
         UpdateCount();
     }
@@ -39,12 +41,12 @@ public class GameManager : MonoBehaviour {
         if (crop.CompareTag("Apple")) {
             CropsCount++;
             UpdateCount();
-            Destroy(crop.gameObject);
+            Homlin.TakeFruit(crop);
         } else if (crop.CompareTag("Orange")) {
             CropsCount += OrangeGain;
 
             UpdateCount();
-            Destroy(crop.gameObject);
+            Homlin.TakeFruit(crop);
         }
     }
 

@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 127482032}
   - component: {fileID: 127482031}
   m_Layer: 0
-  m_Name: Cube (58)
+  m_Name: "\u041F\u0440\u043E\u0434\u0430\u0432\u0435\u0446"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2695,6 +2695,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -25.14, z: 0}
+--- !u!114 &445795288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3008059544192942890, guid: 45296f65b8faac445990060128d9f628, type: 3}
+  m_PrefabInstance: {fileID: 3212314362469793398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9258a560e5675b5468454282dd793b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &470662127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4493,6 +4504,7 @@ MonoBehaviour:
   OrangeTreeCost: 30
   OrangeGain: 5
   OrangeTree: {fileID: 7347845081802911119, guid: 2b4ebd3913622ce448cf56fae6adf5eb, type: 3}
+  Homlin: {fileID: 445795288}
 --- !u!1 &792681835
 GameObject:
   m_ObjectHideFlags: 0
@@ -11819,10 +11831,6 @@ PrefabInstance:
     - target: {fileID: 1289780024700992366, guid: 45296f65b8faac445990060128d9f628, type: 3}
       propertyPath: m_Name
       value: Homllin
-      objectReference: {fileID: 0}
-    - target: {fileID: 3008059544192942890, guid: 45296f65b8faac445990060128d9f628, type: 3}
-      propertyPath: Speed
-      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3008059544192942890, guid: 45296f65b8faac445990060128d9f628, type: 3}
       propertyPath: GameManager

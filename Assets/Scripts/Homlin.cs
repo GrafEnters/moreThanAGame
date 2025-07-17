@@ -7,26 +7,38 @@ public class Homlin : MonoBehaviour {
     public float Speed;
 
     public GameManager GameManager;
+    
+    public Rigidbody Rigidbody;
+
+    public Transform FruitContainer;
 
     void Update() {
         if (Input.GetKey(KeyCode.W)) {
-            Transform.position += Vector3.forward * Speed;
+            Rigidbody.MovePosition(Rigidbody.position + Vector3.forward * Speed);
         }
 
         if (Input.GetKey(KeyCode.A)) {
-            Transform.position += Vector3.left * Speed;
+            Rigidbody.MovePosition(Rigidbody.position + Vector3.left * Speed);
         }
 
         if (Input.GetKey(KeyCode.S)) {
-            Transform.position += Vector3.back * Speed;
+            Rigidbody.MovePosition(Rigidbody.position + Vector3.back * Speed);
         }
 
         if (Input.GetKey(KeyCode.D)) {
-            Transform.position += Vector3.right * Speed;
+            Rigidbody.MovePosition(Rigidbody.position + Vector3.right * Speed);
         }
     }
 
     private void OnCollisionEnter(Collision other) {
         GameManager.CollectCrop(other.collider.attachedRigidbody);
     }
+
+    public void TakeFruit(Rigidbody crop) {
+        crop.transform.parent = FruitContainer;
+        crop.transform.localPosition = Vector3.zero;
+        crop.detectCollisions = false;
+        crop.isKinematic = true;
+    }
+    
 }

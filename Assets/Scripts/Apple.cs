@@ -2,7 +2,15 @@ using System;
 using UnityEngine;
 
 public class Apple : MonoBehaviour {
+    public Rigidbody RigidBody;
+
     private void Start() {
-        Destroy(gameObject, 5);
+        Invoke(nameof(TryDestroy), 5);
+    }
+
+    private void TryDestroy() {
+        if (RigidBody.detectCollisions) {
+            Destroy(gameObject);
+        }
     }
 }
