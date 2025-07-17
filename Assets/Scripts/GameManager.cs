@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CollectCrop(Rigidbody crop) {
+        if (crop == null) {
+            return;
+        }
+        
         if (crop.CompareTag("Apple")) {
             CropsCount++;
             UpdateCount();
