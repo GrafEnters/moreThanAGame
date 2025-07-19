@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Apple : MonoBehaviour {
+public class Autodestroy : MonoBehaviour {
     public Rigidbody RigidBody;
 
     private void Start() {

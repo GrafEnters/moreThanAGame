@@ -10,9 +10,9 @@ public class Homlin : MonoBehaviour {
     
     public Rigidbody Rigidbody;
 
-    public Transform FruitContainer;
+    public Transform ItemsContainer;
 
-    public float FruitHeight;
+    public float ItemHeight;
     private bool IsSelling;
 
     void Update() {
@@ -34,25 +34,25 @@ public class Homlin : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision other) {
-        GameManager.CollectCrop(other.collider.attachedRigidbody);
+        GameManager.CollectItem(other.collider.attachedRigidbody);
     }
 
-    public void TakeFruit(Rigidbody crop) {
-        int fruitCount = FruitContainer.childCount;
-        crop.transform.parent = FruitContainer;
-        crop.transform.localPosition = Vector3.zero + Vector3.up * fruitCount * FruitHeight;
+    public void TakeItem(Rigidbody crop) {
+        int fruitCount = ItemsContainer.childCount;
+        crop.transform.parent = ItemsContainer;
+        crop.transform.localPosition = Vector3.zero + Vector3.up * fruitCount * ItemHeight;
        
         crop.detectCollisions = false;
         crop.isKinematic = true;
     }
 
-    public void SellFruits() {
+    public void SellItems() {
         if (IsSelling) {
             return;
         }
         IsSelling = true;
-        GameManager.SellFruits(FruitContainer);
-        foreach (Transform child in FruitContainer) {
+        GameManager.SellItems(ItemsContainer);
+        foreach (Transform child in ItemsContainer) {
             Destroy(child.gameObject);
         }
     }

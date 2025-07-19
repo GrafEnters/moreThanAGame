@@ -12,6 +12,6 @@ public class Shopkeeper : MonoBehaviour {
             return;
         }
 
-        homlin.SellFruits();
+        homlin.SellItems();
     }
 }

@@ -129,11 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Transform: {fileID: 6728057416480771905}
-  Speed: 0.035
+  Speed: 0.04
   GameManager: {fileID: 0}
   Rigidbody: {fileID: 3898457248986506499}
-  FruitContainer: {fileID: 2291208063268094848}
-  FruitHeight: 0.4
+  ItemsContainer: {fileID: 2291208063268094848}
+  ItemHeight: 0.4
 --- !u!54 &3898457248986506499
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2291208063268094848}
   m_Layer: 0
-  m_Name: "\u041A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440\u0424\u0440\u0443\u043A\u0442\u043E\u0432"
+  m_Name: ItemsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
