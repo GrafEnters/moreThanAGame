@@ -1,38 +1,30 @@
-using System;
-using TMPro;
-using Unity.Profiling.LowLevel.Unsafe;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour {
-    
     public GameUI GameUI;
-    public int CropsCount;
+
+    public MainGameConfig MainGameConfig;
+
+    [HideInInspector]
+    public int FruitsCount;
+
+    [HideInInspector]
     public int MineralsCount;
 
-    public int TreeCost = 10;
-    public int TreeCreateRadius = 25;
-
-    public Plant TreePrefab;
-
-    public int OrangeTreeCost = 30;
-    public int OrangeGain = 5;
-
-    public int DoorCost = 30;
-    
-    public int RareAmberGain = 10;
-
-    public int WinGameFruitsCost = 1000;
-    public int WinGameMineralsCost = 100;
-    
-    public Plant OrangeTree;
+    [SerializeField]
+    private TreesSpawner AppleTreeSpawner,OrangeTreeSpawner;
 
     public Homlin Homlin;
 
     [SerializeField]
     private GameObject Door;
+    
+    
+    private bool IsDoorOpen = false;
 
     private void Start() {
+        GameUI.Init(MainGameConfig);
+        FruitsCount = MainGameConfig.AppleTreeCost;
         UpdateCount();
     }
 
@@ -55,33 +47,25 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        if (crop.CompareTag("Apple") || crop.CompareTag("Orange") ||  crop.CompareTag("Amber")||  crop.CompareTag("AmberRare")) {
+        if (crop.CompareTag("Apple") || crop.CompareTag("Orange") || crop.CompareTag("Amber") || crop.CompareTag("AmberRare")) {
             Homlin.TakeItem(crop);
         }
     }
 
     private void UpdateCount() {
-        GameUI.SetCounters(CropsCount, MineralsCount);
-    }
-
-  
-
-    private void CreateTree(Plant tree) {
-        var randomPos = new Vector3(Random.Range(-TreeCreateRadius, TreeCreateRadius), 0, Random.Range(-TreeCreateRadius, TreeCreateRadius));
-
-        Instantiate(tree, randomPos, Quaternion.identity);
+        GameUI.SetCounters(FruitsCount, MineralsCount, IsDoorOpen);
     }
 
     public void SellItems(Transform itemContainer) {
         foreach (Transform item in itemContainer) {
             if (item.CompareTag("Apple")) {
-                CropsCount++;
+                FruitsCount++;
             } else if (item.CompareTag("Orange")) {
-                CropsCount += OrangeGain;
+                FruitsCount += MainGameConfig.OrangeGain;
             } else if (item.CompareTag("Amber")) {
                 MineralsCount++;
-            }else if (item.CompareTag("AmberRare")) {
-                MineralsCount+= RareAmberGain;
+            } else if (item.CompareTag("AmberRare")) {
+                MineralsCount += MainGameConfig.RareAmberGain;
             }
         }
 
@@ -89,34 +73,35 @@ public class GameManager : MonoBehaviour {
     }
 
     public void BuyTree() {
-        if (CropsCount >= TreeCost) {
-            CreateTree(TreePrefab);
-            CropsCount -= TreeCost;
+        if (FruitsCount >= MainGameConfig.AppleTreeCost) {
+            AppleTreeSpawner.CreateTree();
+            FruitsCount -= MainGameConfig.AppleTreeCost;
             UpdateCount();
         }
     }
-    
+
     public void BuyDoor() {
-        if (CropsCount >= DoorCost) {
-            CropsCount -= DoorCost;
+        if (FruitsCount >= MainGameConfig.DoorCost) {
+            FruitsCount -= MainGameConfig.DoorCost;
             Door.gameObject.SetActive(false);
+            IsDoorOpen = true;
             UpdateCount();
         }
     }
+
     public void BuyOrangeTree() {
-        if (MineralsCount >= OrangeTreeCost) {
-            CreateTree(OrangeTree);
-            MineralsCount -= OrangeTreeCost;
+        if (MineralsCount >= MainGameConfig.OrangeTreeCost) {
+            OrangeTreeSpawner.CreateTree();
+            MineralsCount -= MainGameConfig.OrangeTreeCost;
             UpdateCount();
         }
     }
 
     public void BuyWinGame() {
-        if (CropsCount >= WinGameFruitsCost && MineralsCount >= WinGameMineralsCost) {
-            CropsCount -= WinGameFruitsCost;
-            MineralsCount -= WinGameMineralsCost;
+        if (FruitsCount >= MainGameConfig.WinGameFruitsCost && MineralsCount >= MainGameConfig.WinGameMineralsCost) {
+            FruitsCount -= MainGameConfig.WinGameFruitsCost;
+            MineralsCount -= MainGameConfig.WinGameMineralsCost;
             GameUI.ShowWinGame();
         }
     }
-    
 }
