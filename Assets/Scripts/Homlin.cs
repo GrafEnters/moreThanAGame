@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Homlin : MonoBehaviour {
@@ -14,6 +15,13 @@ public class Homlin : MonoBehaviour {
 
     public float ItemHeight;
     private bool IsSelling;
+    private int _currentItemsCount;
+
+    [SerializeField]
+    private float _takeAnimationTime = 0.5f;
+    
+    [SerializeField]
+    private AnimationCurve _takeAnimationCurve;
 
     void Update() {
         if (Input.GetKey(KeyCode.W)) {
@@ -37,14 +45,41 @@ public class Homlin : MonoBehaviour {
         GameManager.CollectItem(other.collider.attachedRigidbody);
     }
 
-    public void TakeItem(Rigidbody crop) {
-        int fruitCount = ItemsContainer.childCount;
-        crop.transform.parent = ItemsContainer;
-        crop.transform.localPosition = Vector3.zero + Vector3.up * fruitCount * ItemHeight;
+    public void TakeItem(Rigidbody item) {
+        if (item.transform.parent == ItemsContainer) {
+            return;
+        }
+        
+        item.transform.parent = ItemsContainer;
+        var finalShift = Vector3.up * _currentItemsCount * ItemHeight;
+        _currentItemsCount++;
+        StartCoroutine(TakeItemWithAnimation(item.transform, ItemsContainer, finalShift));
        
-        crop.detectCollisions = false;
-        crop.isKinematic = true;
+        item.detectCollisions = false;
+        item.isKinematic = true;
     }
+
+    private IEnumerator TakeItemWithAnimation(Transform item, Transform parent, Vector3 shift) {
+        var startingPos = item.transform.position;
+
+        float curTime = 0;
+
+        while (curTime < _takeAnimationTime) {
+            var percent = curTime / _takeAnimationTime;
+
+            Vector3 nextPos = Vector3.LerpUnclamped(startingPos, parent.position + shift, percent);
+            float nextY = Mathf.LerpUnclamped(startingPos.y, parent.position.y+ shift.y, _takeAnimationCurve.Evaluate(percent));
+            nextPos.y = nextY;
+            
+            item.transform.position = nextPos;
+
+            yield return new WaitForEndOfFrame();
+            curTime += Time.deltaTime;
+        }
+        
+        item.transform.position = parent.position + shift;
+    }
+    
 
     public void SellItems() {
         if (IsSelling) {
@@ -55,6 +90,8 @@ public class Homlin : MonoBehaviour {
         foreach (Transform child in ItemsContainer) {
             Destroy(child.gameObject);
         }
+
+        _currentItemsCount = 0;
     }
 
     private void LateUpdate() {
