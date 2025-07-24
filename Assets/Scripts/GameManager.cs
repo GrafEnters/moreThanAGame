@@ -12,15 +12,15 @@ public class GameManager : MonoBehaviour {
     public int MineralsCount;
 
     [SerializeField]
-    private TreesSpawner AppleTreeSpawner,OrangeTreeSpawner;
+    private TreesSpawner AppleTreeSpawner, OrangeTreeSpawner;
 
     public Homlin Homlin;
 
     [SerializeField]
     private GameObject Door;
-    
-    
+
     private bool IsDoorOpen = false;
+    public bool IsHatBought = false;
 
     private void Start() {
         GameUI.Init(MainGameConfig);
@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void UpdateCount() {
-        GameUI.SetCounters(FruitsCount, MineralsCount, IsDoorOpen);
+    public void UpdateCount() {
+        GameUI.SetCounters(FruitsCount, MineralsCount, IsDoorOpen, IsHatBought);
     }
 
     public void SellItems(Transform itemContainer) {

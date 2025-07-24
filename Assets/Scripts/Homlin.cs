@@ -6,9 +6,10 @@ public class Homlin : MonoBehaviour {
     public Transform Transform;
 
     public float Speed;
+    public int Strength = 5;
 
     public GameManager GameManager;
-    
+
     public Rigidbody Rigidbody;
 
     public Transform ItemsContainer;
@@ -19,9 +20,16 @@ public class Homlin : MonoBehaviour {
 
     [SerializeField]
     private float _takeAnimationTime = 0.5f;
-    
+
     [SerializeField]
     private AnimationCurve _takeAnimationCurve;
+
+    [SerializeField]
+    private GameObject _hat;
+
+    private void Start() {
+        _hat.SetActive(false);
+    }
 
     void Update() {
         if (Input.GetKey(KeyCode.W)) {
@@ -49,12 +57,16 @@ public class Homlin : MonoBehaviour {
         if (item.transform.parent == ItemsContainer) {
             return;
         }
-        
+
+        if (_currentItemsCount >= Strength) {
+            return;
+        }
+
         item.transform.parent = ItemsContainer;
         var finalShift = Vector3.up * _currentItemsCount * ItemHeight;
         _currentItemsCount++;
         StartCoroutine(TakeItemWithAnimation(item.transform, ItemsContainer, finalShift));
-       
+
         item.detectCollisions = false;
         item.isKinematic = true;
     }
@@ -68,23 +80,23 @@ public class Homlin : MonoBehaviour {
             var percent = curTime / _takeAnimationTime;
 
             Vector3 nextPos = Vector3.LerpUnclamped(startingPos, parent.position + shift, percent);
-            float nextY = Mathf.LerpUnclamped(startingPos.y, parent.position.y+ shift.y, _takeAnimationCurve.Evaluate(percent));
+            float nextY = Mathf.LerpUnclamped(startingPos.y, parent.position.y + shift.y, _takeAnimationCurve.Evaluate(percent));
             nextPos.y = nextY;
-            
+
             item.transform.position = nextPos;
 
             yield return new WaitForEndOfFrame();
             curTime += Time.deltaTime;
         }
-        
+
         item.transform.position = parent.position + shift;
     }
-    
 
     public void SellItems() {
         if (IsSelling) {
             return;
         }
+
         IsSelling = true;
         GameManager.SellItems(ItemsContainer);
         foreach (Transform child in ItemsContainer) {
@@ -96,5 +108,9 @@ public class Homlin : MonoBehaviour {
 
     private void LateUpdate() {
         IsSelling = false;
+    }
+
+    public void ActivateHat() {
+        _hat.SetActive(true);
     }
 }
