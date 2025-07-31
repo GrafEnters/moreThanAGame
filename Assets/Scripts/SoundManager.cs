@@ -1,33 +1,20 @@
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour {
+    private AudioSource _audiosource;
 
-{
-    AudioSource audiosource;
     [SerializeField]
-    AudioClip clip;
-    [SerializeField]
-    AudioClip[] dialog; 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        audiosource = GetComponent<AudioSource>();
-        audiosource.clip = clip;
+    private AudioClip _buyClip, _sellClip;
+
+    void Start() {
+        _audiosource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //audiosource.Play();
-            audiosource.PlayOneShot(clip);
-        } else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            audiosource.Pause();
-        } else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            audiosource.Stop();
+    public void PlaySound(SoundTypes type) {
+        if (type == SoundTypes.Buy) {
+            _audiosource.PlayOneShot(_buyClip);
+        } else if (type == SoundTypes.Sell) {
+            _audiosource.PlayOneShot(_sellClip);
         }
     }
 }

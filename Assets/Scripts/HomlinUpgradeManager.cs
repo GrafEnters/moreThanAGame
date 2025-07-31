@@ -13,7 +13,7 @@ public class HomlinUpgradeManager : MonoBehaviour {
     [SerializeField]
     private Homlin _homlin;
 
-    private void Start() {
+    private void Awake() {
         GameUI.InitHomlinUpgrades(_upgradesConfig);
     }
 

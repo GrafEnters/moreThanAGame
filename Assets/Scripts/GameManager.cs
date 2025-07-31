@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject Door;
+    
+    [SerializeField]
+    private SoundManager _soundManager;
+    
 
     private bool IsDoorOpen = false;
     public bool IsHatBought = false;
@@ -69,7 +73,10 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        UpdateCount();
+        if (itemContainer.childCount > 0) {
+            _soundManager.PlaySound(SoundTypes.Sell);
+            UpdateCount();
+        }
     }
 
     public void BuyTree() {
@@ -77,6 +84,7 @@ public class GameManager : MonoBehaviour {
             AppleTreeSpawner.CreateTree();
             FruitsCount -= MainGameConfig.AppleTreeCost;
             UpdateCount();
+            _soundManager.PlaySound(SoundTypes.Buy);
         }
     }
 
@@ -86,6 +94,7 @@ public class GameManager : MonoBehaviour {
             Door.gameObject.SetActive(false);
             IsDoorOpen = true;
             UpdateCount();
+            _soundManager.PlaySound(SoundTypes.Buy);
         }
     }
 
@@ -94,6 +103,7 @@ public class GameManager : MonoBehaviour {
             OrangeTreeSpawner.CreateTree();
             MineralsCount -= MainGameConfig.OrangeTreeCost;
             UpdateCount();
+            _soundManager.PlaySound(SoundTypes.Buy);
         }
     }
 
@@ -102,6 +112,7 @@ public class GameManager : MonoBehaviour {
             FruitsCount -= MainGameConfig.WinGameFruitsCost;
             MineralsCount -= MainGameConfig.WinGameMineralsCost;
             GameUI.ShowWinGame();
+            _soundManager.PlaySound(SoundTypes.Buy);
         }
     }
 }
