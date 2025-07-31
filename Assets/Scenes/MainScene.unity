@@ -13668,7 +13668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameUI: {fileID: 102343734}
-  MainGameConfig: {fileID: 11400000, guid: 85f37c9bb24a6da4abca705bffd2ef17, type: 2}
+  MainGameConfig: {fileID: 11400000, guid: 9fedd9679b755ef409bab6141e4b3138, type: 2}
   FruitsCount: 0
   MineralsCount: 0
   AppleTreeSpawner: {fileID: 901153672}
