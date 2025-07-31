@@ -17,5 +17,5 @@ MonoBehaviour:
   OrangeGain: 50
   DoorCost: 0
   RareAmberGain: 10
-  WinGameFruitsCost: 1000
-  WinGameMineralsCost: 100
+  WinGameFruitsCost: 0
+  WinGameMineralsCost: 0

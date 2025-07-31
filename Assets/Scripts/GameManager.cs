@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -26,7 +28,11 @@ public class GameManager : MonoBehaviour {
     private bool IsDoorOpen = false;
     public bool IsHatBought = false;
 
+    private DateTime _startGameTime;
+    
+
     private void Start() {
+        _startGameTime = DateTime.Now;
         GameUI.Init(MainGameConfig);
         FruitsCount = MainGameConfig.AppleTreeCost;
         UpdateCount();
@@ -113,6 +119,13 @@ public class GameManager : MonoBehaviour {
             MineralsCount -= MainGameConfig.WinGameMineralsCost;
             GameUI.ShowWinGame();
             _soundManager.PlaySound(SoundTypes.Buy);
+            
+            //сохранить время до победы
+            var endTime = DateTime.Now;
+            TimeSpan timeSpan = endTime - _startGameTime;
+            SaveLoadManager.GameData.Highscores.Add(timeSpan.ToString(@"mm\:ss"));
+            SaveLoadManager.GameData.Highscores = SaveLoadManager.GameData.Highscores.TakeLast(3).ToList();
+            SaveLoadManager.SaveGame();
         }
     }
 }
