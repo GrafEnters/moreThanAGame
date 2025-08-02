@@ -32,19 +32,17 @@ public class Homlin : MonoBehaviour {
     private void Start() {
         _hat.SetActive(false);
 
-
-#if UNITY_ANDROID 
+#if UNITY_ANDROID
         _movement = new AndroidMovement();
 #else
         _movement = new WindowsMovement();
 #endif
-        
-        
+
         _movement.Init(Rigidbody);
     }
 
     void FixedUpdate() {
-        _movement.OnUpdate(Speed *100* Time.fixedDeltaTime);
+        _movement.OnUpdate(Speed * 100 * Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision other) {

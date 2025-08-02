@@ -7,45 +7,25 @@ public class AndroidWasdView : MonoBehaviour {
 
     private bool _isUp, _isDown, _isLeft, _isRight;
 
-    public void Init(Rigidbody rb) {
-        _rb = rb;
-    }
+    public void Init(Rigidbody rb) { _rb = rb; }
 
-    public void UpdateSpeed(float speed) {
-        _speed = speed;
-    }
+    public void UpdateSpeed(float speed) { _speed = speed; }
 
-    public void Up() {
-        _isUp = true;
-    }
+    public void Up() { _isUp = true; }
 
-    public void UpRelease() {
-        _isUp = false;
-    }
+    public void UpRelease() { _isUp = false; }
 
-    public void Right() {
-        _isRight = true;
-    }
+    public void Right() { _isRight = true; }
 
-    public void RightRelease() {
-        _isRight = false;
-    }
+    public void RightRelease() { _isRight = false; }
 
-    public void Down() {
-        _isDown = true;
-    }
+    public void Down() { _isDown = true; }
 
-    public void DownRelease() {
-        _isDown = false;
-    }
+    public void DownRelease() { _isDown = false; }
 
-    public void Left() {
-        _isLeft = true;
-    }
+    public void Left() { _isLeft = true; }
 
-    public void LeftRelease() {
-        _isLeft = false;
-    }
+    public void LeftRelease() { _isLeft = false; }
 
     private void FixedUpdate() {
         if (_isUp) {
