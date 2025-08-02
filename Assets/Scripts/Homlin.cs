@@ -27,26 +27,24 @@ public class Homlin : MonoBehaviour {
     [SerializeField]
     private GameObject _hat;
 
+    private IMovement _movement;
+
     private void Start() {
         _hat.SetActive(false);
+
+
+#if UNITY_ANDROID 
+        _movement = new AndroidMovement();
+#else
+        _movement = new WindowsMovement();
+#endif
+        
+        
+        _movement.Init(Rigidbody);
     }
 
-    void Update() {
-        if (Input.GetKey(KeyCode.W)) {
-            Rigidbody.MovePosition(Rigidbody.position + Vector3.forward * Speed);
-        }
-
-        if (Input.GetKey(KeyCode.A)) {
-            Rigidbody.MovePosition(Rigidbody.position + Vector3.left * Speed);
-        }
-
-        if (Input.GetKey(KeyCode.S)) {
-            Rigidbody.MovePosition(Rigidbody.position + Vector3.back * Speed);
-        }
-
-        if (Input.GetKey(KeyCode.D)) {
-            Rigidbody.MovePosition(Rigidbody.position + Vector3.right * Speed);
-        }
+    void FixedUpdate() {
+        _movement.OnUpdate(Speed *100* Time.fixedDeltaTime);
     }
 
     private void OnCollisionEnter(Collision other) {
